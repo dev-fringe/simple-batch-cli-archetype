@@ -2,6 +2,7 @@ package dev.fringe;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,7 +29,7 @@ public class Application {
 	@Test public void testJobs(){
 		jobs.forEach(job -> {
 			try {
-				jobLauncher.run((Job)context.getBean(job), new JobParametersBuilder().addString("uid", String.valueOf(System.currentTimeMillis())).toJobParameters());
+				jobLauncher.run((Job)context.getBean(job), new JobParametersBuilder().addString("uid", UUID.randomUUID().toString()).toJobParameters());
 			} catch (BeansException | JobExecutionAlreadyRunningException | JobRestartException | JobInstanceAlreadyCompleteException | JobParametersInvalidException e) {
 				e.printStackTrace();
 			}
