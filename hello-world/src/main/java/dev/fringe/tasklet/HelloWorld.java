@@ -14,12 +14,12 @@ public class HelloWorld implements Tasklet {
 	private static final String HELLO_WORLD = "Hello, world!";
 
 	public RepeatStatus execute(StepContribution contribution, ChunkContext context) throws Exception {
-		String name = (String) context.getStepContext().getJobParameters().get("uid"); 
-        ExecutionContext jobContext = context.getStepContext().getStepExecution().getExecutionContext();      
-        jobContext.put("uid", name);
-        log.debug(name);
-        log.debug(HELLO_WORLD);
-        return RepeatStatus.FINISHED; 
+		String name = (String) context.getStepContext().getJobParameters().get("uid");
+		ExecutionContext jobContext = context.getStepContext().getStepExecution().getExecutionContext();
+		jobContext.put("uid", name);
+		log.debug(name);
+		log.debug(HELLO_WORLD);
+		return RepeatStatus.FINISHED;
 	}
 
 }

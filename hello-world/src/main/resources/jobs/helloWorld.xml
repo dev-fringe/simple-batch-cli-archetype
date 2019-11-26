@@ -12,7 +12,7 @@
 	
 	<beans:bean id="helloWorld" class="dev.fringe.tasklet.HelloWorld" />
 
-	<step id="helloWorldStep">
+	<step id="helloWorldStep"> 
 		<tasklet ref="helloWorld" />
 	</step>
 
