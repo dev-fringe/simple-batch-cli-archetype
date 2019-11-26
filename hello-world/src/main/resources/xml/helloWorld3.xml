@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+	   	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<bean id="itemReader" class="org.springframework.batch.item.database.HibernateCursorItemReader">
+        <property name="sessionFactory" ref="sessionFactory" />
+        <property name="queryString">
+            <!-- Why CDATA? 
+                 because < etc. is not allowed for xml values
+                 when you use &lt; xml parser will work, but
+                 now the sql won't because of the & spring assumes
+                 a placeholder, see
+                 - AbstractSqlPagingQueryProvider.init(...)
+                 - JdbcParameterUtils.countParameterPlaceholders(...)
+                 -->
+            <value>
+                <![CDATA[
+                    FROM User
+                ]]>
+            </value>
+        </property>
+    </bean>
+    
+    <bean id="itemWriter" class="org.springframework.batch.item.file.FlatFileItemWriter" scope="step">
+        <property name="resource" value="classpath:abc.csv" />
+        <property name="lineAggregator">
+            <bean class="org.springframework.batch.item.file.transform.DelimitedLineAggregator">
+                <property name="fieldExtractor">
+                    <bean class="org.springframework.batch.item.file.transform.PassThroughFieldExtractor" />
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+</beans>

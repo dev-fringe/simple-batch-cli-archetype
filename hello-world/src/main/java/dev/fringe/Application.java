@@ -24,7 +24,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class Application {
 	@Autowired JobLauncher jobLauncher;
 	@Autowired ApplicationContext context;
-	public static List<String> jobs = Arrays.asList("helloWorldJob");
+	public static List<String> jobs = Arrays.asList("Job2");
 	
 	@Test public void testJobs(){
 		jobs.forEach(job -> {
