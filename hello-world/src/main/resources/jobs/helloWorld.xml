@@ -9,6 +9,7 @@
                     http://www.springframework.org/schema/batch/spring-batch.xsd">
                     
 	<beans:import resource="../launch-context.xml" />
+	<beans:import resource="../hibernate-context.xml" />
 	
 	<beans:bean id="helloWorld" class="dev.fringe.tasklet.HelloWorld" />
 
