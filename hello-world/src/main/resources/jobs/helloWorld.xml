@@ -10,6 +10,8 @@
                     
 	<beans:import resource="../launch-context.xml" />
 	<beans:import resource="../hibernate-context.xml" />
+	<beans:import resource="../common-context.xml" />
+	
 	
 	<beans:bean id="helloWorld" class="dev.fringe.tasklet.HelloWorld" />
 
