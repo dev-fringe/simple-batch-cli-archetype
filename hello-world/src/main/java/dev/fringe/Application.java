@@ -1,14 +1,14 @@
 package dev.fringe;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.UUID;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.JobParametersInvalidException;
+import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
@@ -20,19 +20,23 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:jobs/*.xml")
+@ContextConfiguration({
+	 "classpath:launch-context.xml" 
+	,"classpath:hibernate-context.xml" 
+	,"classpath:common-context.xml" 
+	,"classpath:jobs/*.xml"
+	,"classpath:xml/*.xml"})
 public class Application {
+	
 	@Autowired JobLauncher jobLauncher;
-	@Autowired ApplicationContext context;
-	public static List<String> jobs = Arrays.asList("Job2");
+    @Autowired ApplicationContext context;
 	
 	@Test public void testJobs(){
-		jobs.forEach(job -> {
-			try {
-				jobLauncher.run((Job)context.getBean(job), new JobParametersBuilder().addString("uid", UUID.randomUUID().toString()).toJobParameters());
-			} catch (BeansException | JobExecutionAlreadyRunningException | JobRestartException | JobInstanceAlreadyCompleteException | JobParametersInvalidException e) {
-				e.printStackTrace();
-			}
-		});
+		try {
+			JobExecution execution = jobLauncher.run(context.getBean("Job2", Job.class), new JobParametersBuilder().addString("uid", UUID.randomUUID().toString()).toJobParameters());
+			System.out.println("Exit Status : " + execution.getStatus());
+		} catch (BeansException | JobExecutionAlreadyRunningException | JobRestartException | JobInstanceAlreadyCompleteException | JobParametersInvalidException e) {
+			e.printStackTrace();
+		}
 	}
 }
