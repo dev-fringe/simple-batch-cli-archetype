@@ -10,7 +10,7 @@
 	   	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-<context:component-scan base-package="dev.fringe.service"></context:component-scan>
+
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -28,16 +28,16 @@
 		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	<tx:advice id="txAdvice" transaction-manager="transactionManager">
-		<tx:attributes>
-			<tx:method name="select*" read-only="true" />
-			<tx:method name="*" rollback-for="Exception" />
-		</tx:attributes>
-	</tx:advice>
+<!-- 	<tx:advice id="txAdvice" transaction-manager="transactionManager"> -->
+<!-- 		<tx:attributes> -->
+<!-- 			<tx:method name="select*" read-only="true" /> -->
+<!-- 			<tx:method name="*" rollback-for="Exception" /> -->
+<!-- 		</tx:attributes> -->
+<!-- 	</tx:advice> -->
 
-	<aop:config>
-		<aop:pointcut id="requiredTx" expression="execution(public * (@org.springframework.stereotype.Service dev.fringe.service..*).*(..))" />
-		<aop:advisor advice-ref="txAdvice" pointcut-ref="requiredTx" />
-	</aop:config>
+<!-- 	<aop:config> -->
+<!-- 		<aop:pointcut id="requiredTx" expression="execution(public * (@org.springframework.stereotype.Service dev.fringe.service..*).*(..))" /> -->
+<!-- 		<aop:advisor advice-ref="txAdvice" pointcut-ref="requiredTx" /> -->
+<!-- 	</aop:config> -->
 
 </beans>
