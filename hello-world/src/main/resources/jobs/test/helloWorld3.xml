@@ -7,12 +7,12 @@
                     http://www.springframework.org/schema/beans/spring-beans.xsd 
                     http://www.springframework.org/schema/batch 
                     http://www.springframework.org/schema/batch/spring-batch.xsd">
-                    
+
 	<job id="Job2">
-		<step id="step2" >
-		      <tasklet> 
-         <chunk reader="itemReader" writer="itemWriter" commit-interval="10" /> 
-      </tasklet> 
+		<step id="step2">
+			<tasklet>
+				<chunk reader="itemReader" writer="itemWriter" commit-interval="10" />
+			</tasklet>
 		</step>
 	</job>
 </beans:beans> 

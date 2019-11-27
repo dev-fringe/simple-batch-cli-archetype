@@ -11,7 +11,7 @@ import dev.fringe.service.UserService;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
-public class HelloWorld implements Tasklet {
+public class SourceInsert implements Tasklet {
 
 	private static final String HELLO_WORLD = "Hello, world!";
 

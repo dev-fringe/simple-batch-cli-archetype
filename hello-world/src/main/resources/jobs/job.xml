@@ -8,22 +8,20 @@
                     http://www.springframework.org/schema/batch 
                     http://www.springframework.org/schema/batch/spring-batch.xsd">
 
-	<job id="helloWorldJob">
+	<job id="job">
 		<step id="sourceStep" next="exportsStep">
 			<tasklet>
-				<beans:bean class="dev.fringe.tasklet.HelloWorld" />
+				<beans:bean class="dev.fringe.tasklet.SourceInsert" />
 			</tasklet>
 		</step>
 		<step id="exportsStep" next="writesStep">
 			<tasklet>
-				<chunk reader="databaseItemReader" writer="csvFileItemWriter"
-					commit-interval="10" />
+				<chunk reader="databaseItemReader" writer="csvFileItemWriter" commit-interval="10" />
 			</tasklet>
 		</step>
 		<step id="writesStep">
 			<tasklet>
-				<chunk reader="csvFileItemReader" writer="databaseItemWriter"
-					commit-interval="10" />
+				<chunk reader="csvFileItemReader" writer="databaseItemWriter" commit-interval="10" />
 			</tasklet>
 		</step>
 	</job>
