@@ -10,7 +10,7 @@
 	   	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-	<bean id="itemReader" class="org.springframework.batch.item.database.HibernateCursorItemReader">
+	<bean id="databaseItemReader" class="org.springframework.batch.item.database.HibernateCursorItemReader">
         <property name="sessionFactory" ref="sessionFactory" />
         <property name="queryString">
             <!-- Why CDATA? 
@@ -23,13 +23,13 @@
                  -->
             <value>
                 <![CDATA[
-                    FROM User
+                    FROM User user 
                 ]]>
             </value>
         </property>
     </bean>
     
-    <bean id="itemWriter" class="org.springframework.batch.item.file.FlatFileItemWriter" scope="step">
+    <bean id="csvFileItemWriter" class="org.springframework.batch.item.file.FlatFileItemWriter" scope="step">
         <property name="resource" value="file://d://abc.csv" /><!-- #{jobParameters['inputFile']} -->
 <!--         <property name="lineAggregator"> -->
 <!--             <bean class="org.springframework.batch.item.file.transform.DelimitedLineAggregator"> -->

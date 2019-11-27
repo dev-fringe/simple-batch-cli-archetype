@@ -10,7 +10,7 @@
 	   	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-	<bean id="csvItemReader" class="org.springframework.batch.item.file.FlatFileItemReader" scope="step">
+	<bean id="csvFileItemReader" class="org.springframework.batch.item.file.FlatFileItemReader" scope="step">
 		<property name="resource" value="file:d:\\abc.csv" />
 		<property name="lineMapper">
 			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
@@ -33,7 +33,7 @@
 	</bean>
 
 
-	<bean id="dbItemWriter"
+	<bean id="databaseItemWriter"
 		class="org.springframework.batch.item.database.HibernateItemWriter">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>

@@ -9,20 +9,20 @@
                     http://www.springframework.org/schema/batch/spring-batch.xsd">
 
 	<job id="helloWorldJob">
-		<step id="step1" next="step2">
+		<step id="sourceStep" next="exportsStep">
 			<tasklet>
 				<beans:bean class="dev.fringe.tasklet.HelloWorld" />
 			</tasklet>
 		</step>
-		<step id="step2" next="step3">
+		<step id="exportsStep" next="writesStep">
 			<tasklet>
-				<chunk reader="itemReader" writer="itemWriter"
+				<chunk reader="databaseItemReader" writer="csvFileItemWriter"
 					commit-interval="10" />
 			</tasklet>
 		</step>
-		<step id="step3">
+		<step id="writesStep">
 			<tasklet>
-				<chunk reader="csvItemReader" writer="dbItemWriter"
+				<chunk reader="csvFileItemReader" writer="databaseItemWriter"
 					commit-interval="10" />
 			</tasklet>
 		</step>
