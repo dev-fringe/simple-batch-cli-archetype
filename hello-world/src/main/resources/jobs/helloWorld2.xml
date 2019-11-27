@@ -8,17 +8,6 @@
                     http://www.springframework.org/schema/batch 
                     http://www.springframework.org/schema/batch/spring-batch.xsd">
                     
-<!-- 	<beans:import resource="classpath:/launch-context.xml" /> -->
-<!-- 	<beans:import resource="classpath:/hibernate-context.xml" /> -->
-<!-- 	<beans:import resource="classpath:/common-context.xml" /> -->
-<!-- 	<beans:import resource="classpath:/xml/helloWorld3.xml" /> -->
-	
-<!-- 	<step id="helloWorldStep3">  -->
-<!--       <tasklet>  -->
-<!--          <chunk reader="csvItemReader" writer="dbItemWriter" commit-interval="10" />  -->
-<!--       </tasklet>  -->
-<!-- 	</step> -->
-
 	<job id="Job3">
 		<step id="step3" >
 		      <tasklet> 

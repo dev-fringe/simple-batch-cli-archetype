@@ -7,19 +7,24 @@
                     http://www.springframework.org/schema/beans/spring-beans.xsd 
                     http://www.springframework.org/schema/batch 
                     http://www.springframework.org/schema/batch/spring-batch.xsd">
-                    
-<!-- 	<beans:import resource="../launch-context.xml" /> -->
-<!-- 	<beans:import resource="../hibernate-context.xml" /> -->
-<!-- 	<beans:import resource="../common-context.xml" /> -->
-	
-	
-	<beans:bean id="helloWorld" class="dev.fringe.tasklet.HelloWorld" />
-
-	<step id="helloWorldStep"> 
-		<tasklet ref="helloWorld" />
-	</step>
 
 	<job id="helloWorldJob">
-		<step id="step1" parent="helloWorldStep" />
+		<step id="step1" next="step2">
+			<tasklet>
+				<beans:bean class="dev.fringe.tasklet.HelloWorld" />
+			</tasklet>
+		</step>
+		<step id="step2" next="step3">
+			<tasklet>
+				<chunk reader="itemReader" writer="itemWriter"
+					commit-interval="10" />
+			</tasklet>
+		</step>
+		<step id="step3">
+			<tasklet>
+				<chunk reader="csvItemReader" writer="dbItemWriter"
+					commit-interval="10" />
+			</tasklet>
+		</step>
 	</job>
 </beans:beans> 

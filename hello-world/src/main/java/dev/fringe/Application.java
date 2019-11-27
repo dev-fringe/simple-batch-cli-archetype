@@ -31,10 +31,10 @@ public class Application extends JobSupport{
 		try {
 			JobExecution execution = jobLauncher.run(context.getBean(HELLO_WORLD_JOB, Job.class), new JobParametersBuilder().addString("uid", UUID.randomUUID().toString()).toJobParameters());
 			System.out.println("Exit Status : " + execution.getStatus());
-			JobExecution execution2 = jobLauncher.run(context.getBean(JOB2, Job.class), new JobParametersBuilder().addString("uid", UUID.randomUUID().toString()).toJobParameters());
-			System.out.println("Exit Status : " + execution2.getStatus());
-			JobExecution execution3 = jobLauncher.run(context.getBean(JOB3, Job.class), new JobParametersBuilder().addString("uid", UUID.randomUUID().toString()).toJobParameters());
-			System.out.println("Exit Status : " + execution3.getStatus());
+//			JobExecution execution2 = jobLauncher.run(context.getBean(JOB2, Job.class), new JobParametersBuilder().addString("uid", UUID.randomUUID().toString()).toJobParameters());
+//			System.out.println("Exit Status : " + execution2.getStatus());
+//			JobExecution execution3 = jobLauncher.run(context.getBean(JOB3, Job.class), new JobParametersBuilder().addString("uid", UUID.randomUUID().toString()).toJobParameters());
+//			System.out.println("Exit Status : " + execution3.getStatus());
 		} catch (BeansException | JobExecutionAlreadyRunningException | JobRestartException | JobInstanceAlreadyCompleteException | JobParametersInvalidException e) {
 			e.printStackTrace();
 		}
