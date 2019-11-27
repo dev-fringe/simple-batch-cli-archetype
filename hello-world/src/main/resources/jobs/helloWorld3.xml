@@ -13,17 +13,13 @@
 <!-- 	<beans:import resource="classpath:/common-context.xml" /> -->
 <!-- 	<beans:import resource="classpath:/xml/helloWorld3.xml" /> -->
 	
-<!-- 	<step id="helloWorldStep3">  -->
-<!--       <tasklet>  -->
-<!--          <chunk reader="csvItemReader" writer="dbItemWriter" commit-interval="10" />  -->
-<!--       </tasklet>  -->
-<!-- 	</step> -->
+	<step id="helloWorldStep2"> 
+      <tasklet> 
+         <chunk reader="itemReader" writer="itemWriter" commit-interval="10" /> 
+      </tasklet> 
+	</step>
 
-	<job id="Job3">
-		<step id="step3" >
-		      <tasklet> 
-        		 <chunk reader="csvItemReader" writer="dbItemWriter" commit-interval="10" /> 
-     		 </tasklet> 
-		</step>
+	<job id="Job2">
+		<step id="step2" parent="helloWorldStep2" />
 	</job>
 </beans:beans> 

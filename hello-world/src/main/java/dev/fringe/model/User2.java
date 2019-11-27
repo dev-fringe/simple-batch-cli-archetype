@@ -16,24 +16,26 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "user")
-public class User {
+@Table(name = "user2")
+public class User2 {
 	
 	@Id
-	@GeneratedValue(generator = "increment")
-	@GenericGenerator(name = "increment", strategy = "increment")
+//	@GeneratedValue(generator = "increment")
+//	@GenericGenerator(name = "increment", strategy = "increment")
 	private Long id;
+	private String ids;
 	private String name;
+	private String test;
 	@CreationTimestamp
 	@Temporal(TemporalType.DATE)
 	private Date inserted;
 	
-	public User(String name) {
+	public User2(String name) {
 		super();
 		this.name = name;
 	}
 
-	public User() {
+	public User2() {
 		super();
 	}
 	
