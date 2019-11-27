@@ -12,6 +12,6 @@ public class UserService {
 	@Autowired SessionFactory sessionFactory;
 	
 	public void insert() {
-			sessionFactory.getCurrentSession().save(new User("sdds"));
+		sessionFactory.getCurrentSession().save(new User("sdds"));
 	}
 }
