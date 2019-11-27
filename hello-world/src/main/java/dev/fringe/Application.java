@@ -1,7 +1,11 @@
 package dev.fringe;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import java.util.UUID;
 
 import org.junit.Test;
@@ -13,9 +17,12 @@ import org.springframework.batch.core.repository.JobExecutionAlreadyRunningExcep
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.beans.BeansException;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.test.context.ContextConfiguration;
 
-import dev.fringe.model.BatchTable;
+import dev.fringe.model.Table;
+import lombok.extern.log4j.Log4j2;
 
 @ContextConfiguration({
 	 "classpath:launch-context.xml" 
@@ -23,26 +30,28 @@ import dev.fringe.model.BatchTable;
 	,"classpath:common-context.xml" 
 	,"classpath:jobs/*.xml"
 	,"classpath:jobs/steps/*.xml"})
+@Log4j2
 public class Application extends JobSupport{
 	
-	private static final String JOB2 = "Job2";
-	private static final String JOB3 = "Job3";
 	private static final String JOB = "job";
-	private static final List<BatchTable> JOBS = Arrays.asList(BatchTable.values());
+	private static final List<Table> TABLES = Arrays.asList(Table.values());
 	
 	@Test 
 	public void testJobs(){
 		try {
-			for (BatchTable batchTable : JOBS) {
-				System.out.println(batchTable.toString());
+			for (Table batch : TABLES) {
+				log.info(batch.toString());
+				Properties props = PropertiesLoaderUtils.loadProperties(new ClassPathResource(String.format("/%s.properties", batch.toString())));
+				JobExecution execution = jobLauncher.run(context.getBean(JOB, Job.class), 
+						new JobParametersBuilder()
+						.addString("uid", UUID.randomUUID().toString())
+						.addString("date", new SimpleDateFormat("yyyy-MM-dd").format(new Date()))
+						.addString("table", batch.toString())
+						.addString("reader.names", props.getProperty("reader.names"))
+						.addString("writer.names", props.getProperty("writer.names")).toJobParameters());
+				System.out.println("Exit Status : " + execution.getStatus());
 			}
-			JobExecution execution = jobLauncher.run(context.getBean(JOB, Job.class), new JobParametersBuilder().addString("uid", UUID.randomUUID().toString()).toJobParameters());
-			System.out.println("Exit Status : " + execution.getStatus());
-//			JobExecution execution2 = jobLauncher.run(context.getBean(JOB2, Job.class), new JobParametersBuilder().addString("uid", UUID.randomUUID().toString()).toJobParameters());
-//			System.out.println("Exit Status : " + execution2.getStatus());
-//			JobExecution execution3 = jobLauncher.run(context.getBean(JOB3, Job.class), new JobParametersBuilder().addString("uid", UUID.randomUUID().toString()).toJobParameters());
-//			System.out.println("Exit Status : " + execution3.getStatus());
-		} catch (BeansException | JobExecutionAlreadyRunningException | JobRestartException | JobInstanceAlreadyCompleteException | JobParametersInvalidException e) {
+		} catch (BeansException | JobExecutionAlreadyRunningException | JobRestartException | JobInstanceAlreadyCompleteException | JobParametersInvalidException | IOException e) {
 			e.printStackTrace();
 		}
 	}

@@ -10,8 +10,9 @@
 	   	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-	<bean id="databaseItemReader" class="org.springframework.batch.item.database.HibernateCursorItemReader">
+	<bean id="databaseItemReader" class="org.springframework.batch.item.database.HibernateCursorItemReader" scope="step">
         <property name="sessionFactory" ref="sessionFactory" />
+<!--         <property name="queryString" value="from #{jobParameters['table']}"/> -->
         <property name="queryString">
             <!-- Why CDATA? 
                  because < etc. is not allowed for xml values
@@ -23,23 +24,15 @@
                  -->
             <value>
                 <![CDATA[
-                    FROM User user 
+                    FROM #{jobParameters['table']}
                 ]]>
             </value>
         </property>
     </bean>
     
     <bean id="csvFileItemWriter" class="org.springframework.batch.item.file.FlatFileItemWriter" scope="step">
-        <property name="resource" value="file://d://abc.csv" /><!-- #{jobParameters['inputFile']} -->
-<!--         <property name="lineAggregator"> -->
-<!--             <bean class="org.springframework.batch.item.file.transform.DelimitedLineAggregator"> -->
-<!--                 <property name="fieldExtractor"> -->
-<!--                     <bean class="org.springframework.batch.item.file.transform.PassThroughFieldExtractor" /> -->
-<!--                 </property> -->
-<!--             </bean> -->
-<!--         </property> -->
+        <property name="resource" value="file:d://#{jobParameters['table']}-#{jobParameters['date']}.csv" />
 		<property name="shouldDeleteIfExists" value="true" />
-		
 			<property name="lineAggregator">
 			  <bean
 				class="org.springframework.batch.item.file.transform.DelimitedLineAggregator">
@@ -47,7 +40,7 @@
 				<property name="fieldExtractor">
 				  <bean
 					class="org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor">
-					<property name="names" value="id, name, inserted" />
+					<property name="names" value="#{jobParameters['reader.names']}" />
 				   </bean>
 				</property>
 			   </bean>

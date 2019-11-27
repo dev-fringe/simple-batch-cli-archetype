@@ -20,7 +20,6 @@ public class User2 {
 	@Id
 	private Long id;
 	private String name;
-	private String test;
 	@CreationTimestamp
 	@Temporal(TemporalType.DATE)
 	private Date inserted;

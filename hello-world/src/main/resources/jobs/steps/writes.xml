@@ -11,27 +11,41 @@
        	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
 	<bean id="csvFileItemReader" class="org.springframework.batch.item.file.FlatFileItemReader" scope="step">
-		<property name="resource" value="file:d:\\abc.csv" />
+		<property name="resource" value="file:d://#{jobParameters['table']}-#{jobParameters['date']}.csv" />
 		<property name="lineMapper">
 			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
 				<property name="lineTokenizer">
 					<bean
 						class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
-						<property name="names" value="id,name,test" />
-						<property name="delimiter" value="," /> <!-- default -->
+						<property name="names" value="#{jobParameters['writer.names']}" />
+						<property name="delimiter" value="," />
 					</bean>
 				</property>
 				<property name="fieldSetMapper">
 					<bean
 						class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
-						<property name="targetType"
-							value="dev.fringe.model.User2" />
+						<property name="targetType" value="dev.fringe.model.#{jobParameters['table']}2" />
+						<!-- string to date -->
+						<property name="customEditors">
+						  <map>
+							<entry key="java.util.Date">
+								<bean 
+								  class="org.springframework.beans.propertyeditors.CustomDateEditor">
+								  <constructor-arg>
+									<bean class="java.text.SimpleDateFormat">
+								         <constructor-arg value="yyyy-MM-dd" />
+									</bean>
+								  </constructor-arg>
+								  <constructor-arg value="true" /> 
+								</bean>
+							</entry>
+						  </map>
+						</property>
 					</bean>
 				</property>
 			</bean>
 		</property>
 	</bean>
-
 
 	<bean id="databaseItemWriter"
 		class="org.springframework.batch.item.database.HibernateItemWriter">
