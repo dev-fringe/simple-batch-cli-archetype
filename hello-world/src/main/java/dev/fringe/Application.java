@@ -36,8 +36,7 @@ public class Application extends JobSupport{
 	private static final String JOB = "job";
 	private static final List<Table> TABLES = Arrays.asList(Table.values());
 	
-	@Test 
-	public void testJobs(){
+	@Test public void testJobs(){
 		try {
 			for (Table batch : TABLES) {
 				log.info(batch.toString());
