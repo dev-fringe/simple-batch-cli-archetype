@@ -141,7 +141,25 @@
 				</exclusion>
 			</exclusions>
 		</dependency>		
+<!-- 		<dependency> -->
+<!-- 		    <groupId>com.oracle.jdbc</groupId> -->
+<!-- 		    <artifactId>ojdbc14</artifactId> -->
+<!-- 		    <version>10.2.0.1.0</version> -->
+<!-- 		</dependency> -->
+<dependency>
+    <groupId>org.scala-lang</groupId>
+    <artifactId>scala-library</artifactId>
+    <version>2.12.3</version>
+</dependency>
+<dependency>
+    <groupId>commons-beanutils</groupId>
+    <artifactId>commons-beanutils</artifactId>
+    <version>1.9.4</version>
+</dependency>
+
+
 	</dependencies>
+	
 	<build>
 	<plugins>
 			<plugin>
@@ -154,4 +172,18 @@
 			</plugin>
 	</plugins>
 	</build>
+<!-- 	https://mvnrepository.com/artifact/com.oracle.jdbc/ojdbc14 -->
+    <repositories>
+        <repository>
+            <id>spring-snapshot</id>
+            <name>Spring Snapshot Repository</name>
+            <url>https://mvnrepository.com/artifact/com.oracle.jdbc/ojdbc14</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+    </repositories>
 </project>

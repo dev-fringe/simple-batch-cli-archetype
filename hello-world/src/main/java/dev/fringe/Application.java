@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.UUID;
 
@@ -22,6 +24,7 @@ import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.test.context.ContextConfiguration;
 
 import dev.fringe.model.Table;
+import dev.fringe.support.TypeHelper;
 import lombok.extern.log4j.Log4j2;
 
 @ContextConfiguration({
@@ -53,5 +56,14 @@ public class Application extends JobSupport{
 		} catch (BeansException | JobExecutionAlreadyRunningException | JobRestartException | JobInstanceAlreadyCompleteException | JobParametersInvalidException | IOException e) {
 			e.printStackTrace();
 		}
+	}
+	public static void main(String[] args) {
+	   int ss = 123;
+	   Map map = new HashMap<>();
+	   map.put("sss", ss);
+	   map.put("ss1s", "ss1");
+	   map.put("date", new Date());
+	   TypeHelper type = new TypeHelper();
+	   System.out.println(type.check(map.get("sss")));
 	}
 }
