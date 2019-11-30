@@ -20,6 +20,6 @@ public class ApplicationUnitTest extends JobSupport{
 	@Autowired UserService service;
 	@Test 
 	public void testJobs() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException{
-		service.select();
+		service.selectS();
 	}
 }

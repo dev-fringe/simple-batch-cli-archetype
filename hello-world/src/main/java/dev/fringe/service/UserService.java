@@ -100,4 +100,9 @@ public class UserService {
 		
 				
 	}
+
+	public void selectS() {
+		List<UserS> list = sessionFactory.getCurrentSession().createQuery("from UserS", UserS.class).list();
+		System.out.println(list);
+	}
 }
