@@ -146,6 +146,12 @@
 <!-- 		    <artifactId>ojdbc14</artifactId> -->
 <!-- 		    <version>10.2.0.1.0</version> -->
 <!-- 		</dependency> -->
+
+        <dependency>
+            <groupId>com.emc.documentum.dfc</groupId>
+            <artifactId>dfc</artifactId>
+            <version>7.2-20160710.203551-32</version>
+        </dependency>
 <dependency>
     <groupId>org.scala-lang</groupId>
     <artifactId>scala-library</artifactId>
@@ -190,5 +196,13 @@
                 <enabled>true</enabled>
             </releases>
         </repository>
+
+        <repository>
+            <id>com.emc.documentum.spring</id>
+            <url>https://raw.github.com/mmohen/mvn-repo/gh-pages</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>        
     </repositories>
 </project>
