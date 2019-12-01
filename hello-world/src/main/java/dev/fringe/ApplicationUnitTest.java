@@ -12,7 +12,7 @@ import dev.fringe.service.UserService;
 	 "classpath:launch-context.xml" 
 	,"classpath:hibernate-context.xml" 
 	,"classpath:common-context.xml" 
-//	,"classpath:transaction-context.xml" 	
+	,"classpath:transaction-context.xml" 	
 	,"classpath:jpa-context.xml"
 	,"classpath:jobs/*.xml"
 	,"classpath:jobs/steps/*.xml"})
@@ -21,6 +21,6 @@ public class ApplicationUnitTest extends JobSupport{
 	@Autowired UserService service;
 	@Test 
 	public void testJobs() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException{
-		service.selectS();
+		service.insertS1();
 	}
 }

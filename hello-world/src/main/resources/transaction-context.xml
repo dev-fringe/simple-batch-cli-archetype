@@ -26,5 +26,16 @@
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="requiredTx" />
 	</aop:config>
 
+	<tx:advice id="txAdvice1" transaction-manager="jpaTransactionManager">
+		<tx:attributes>
+			<tx:method name="select*" read-only="true"/>
+			<tx:method name="*" rollback-for="Exception"/>
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config>										
+		<aop:pointcut id="requiredTx1" expression="execution(public * (@org.springframework.stereotype.Service dev.fringe..*).*(..))"/>
+		<aop:advisor advice-ref="txAdvice1" pointcut-ref="requiredTx1" />
+	</aop:config>
 </beans>
 

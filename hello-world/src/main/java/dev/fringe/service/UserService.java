@@ -109,4 +109,8 @@ public class UserService {
 //		System.out.println(list);
 		System.out.println(userSRepository.findAll());
 	}
+
+	public void insertS1() {
+		userSRepository.save(new UserS(UUID.randomUUID().toString()));
+	}
 }
