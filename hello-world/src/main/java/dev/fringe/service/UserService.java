@@ -17,11 +17,16 @@ import org.springframework.stereotype.Service;
 
 import dev.fringe.model.User;
 import dev.fringe.model.UserS;
+import dev.fringe.repository.UserSRepository;
 
 @Service
 public class UserService {
 
 	@Autowired SessionFactory sessionFactory;
+	
+	@Autowired UserSRepository userSRepository;
+	
+//	@Value("#{jobParameters['table']}") String table;
 	
 	public void insert() {
 		sessionFactory.getCurrentSession().save(new User(UUID.randomUUID().toString()));
@@ -97,12 +102,11 @@ public class UserService {
 		BeanUtils.populate(user2, map);
 		System.out.println(user);
 		System.out.println(user2);
-		
-				
 	}
 
 	public void selectS() {
-		List<UserS> list = sessionFactory.getCurrentSession().createQuery("from UserS", UserS.class).list();
-		System.out.println(list);
+//		List<UserS> list = sessionFactory.getCurrentSession().createQuery("from UserS", UserS.class).list();
+//		System.out.println(list);
+		System.out.println(userSRepository.findAll());
 	}
 }
